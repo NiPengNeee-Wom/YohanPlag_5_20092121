@@ -1,3 +1,20 @@
+    // recupération données localStorage et calcul total price
+// function retrieveAndControlStorageData(colorChoice, product){
+//     let archive = [];
+//     for (var i = 0; i<localStorage.length; i++) {
+//         archive[i] = JSON.parse(localStorage.getItem(localStorage.key(i)));
+//         if (product._id = archive[i]._id && colorChoice == archive[i].colors){
+//             console.log("il existe un produit de ce type");      
+//             const productCount = document.getElementById("quantity");
+//             productCount.setAttribute("value", archive[i].count);
+//             archive = [];
+//         }else{
+//             const productCount = document.getElementById("quantity");
+//             productCount.setAttribute("value", 0);
+//         }
+//     }
+// }
+
 class Canap{
     constructor(altTxt, colors, description, imageUrl, name, price, _id, count){
         this.altTxt = altTxt;
@@ -25,8 +42,6 @@ async function fetchApi(idProduct){                                 //fetchApi p
 
 
 const displayProducts = (product) => {                              // display du produit
-
-    // placer le count sur la page en fonciton du produit               >>>>>> emile
 
     // Gestion Image
     const parentNodeImg = document.querySelector("div.item__img");  //placement sur div parent de l'img
@@ -61,14 +76,14 @@ const displayProducts = (product) => {                              // display d
 
 }
 
-
 const savingDataLocalStorage = (product) =>{                 //saving data
-    
+
     // Stockage couleur
     let colorChoice = "";
     const colorChoiceNode = document.getElementById("colors");
     colorChoiceNode.addEventListener('change', function(eventSel){
-    colorChoice = eventSel.target.value;
+    colorChoice = eventSel.target.value;                                                                   
+    // retrieveAndControlStorageData(colorChoice, product);
     });
 
     // Stockage quantity
@@ -82,12 +97,10 @@ const savingDataLocalStorage = (product) =>{                 //saving data
     const eventButton = document.getElementById("addToCart");
     eventButton.addEventListener('click', function(){
 
-        // control nombre de pour iteration                     >>>> emile
-
         let dataProduct = new Canap(product.altTxt, colorChoice ,product.description, product.imageUrl, product.name, product.price, product._id, productCount);
         
         // localStorageTab.push(dataProduct); injection class dans storage
-        if (productCount >= 1 && colorChoice != ""){
+        if (productCount >= 1 && colorChoice != "" && productCount <= 100){
         
         let stringDataProduct = JSON.stringify(dataProduct);
         localStorage.setItem(product.name + " " + colorChoice, stringDataProduct);
@@ -100,7 +113,7 @@ const savingDataLocalStorage = (product) =>{                 //saving data
 
 async function main(){
     var idProduct = document.location.href.split("id=");    // spit de l'id dans l'url
-    let product = await fetchApi(idProduct[1]);             // fetch avec id
+    let product = await fetchApi(idProduct[1]);              // fetch avec id
     displayProducts(product);                               // display du produit
     savingDataLocalStorage(product);                        // stockage info local storage
 }

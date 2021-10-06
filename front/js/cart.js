@@ -37,15 +37,18 @@ function displayCartArticle(element){
     // Creation div contenu item
     const contentNode = document.createElement("div");
     contentNode.classList.add("cart__item__content");
+    const contentNodeSub = document.createElement("div");
+    contentNodeSub.classList.add("cart__item__content__titlePrice");
     articleNode.appendChild(contentNode);
+    contentNode.appendChild(contentNodeSub);
 
     // Creation bloc prix et titre
     const productName = document.createElement("h2");
     productName.innerText = element.name + " " + element.colors;
     const productPrice = document.createElement("p");
     productPrice.innerText = element.price + "€";
-    contentNode.appendChild(productName);
-    contentNode.appendChild(productPrice);
+    contentNodeSub.appendChild(productName);
+    contentNodeSub.appendChild(productPrice);
 
     // Creation bloc settings
     const settingsNode = document.createElement("div");
@@ -54,6 +57,7 @@ function displayCartArticle(element){
 
     // Creation bloc quantity settings
     const quantityNode = document.createElement("div");
+    quantityNode.classList.add("cart__item__content__settings__quantity");
     settingsNode.appendChild(quantityNode);
     const quantity = document.createElement("p");
     quantity.innerText = "Qté : ";
@@ -70,6 +74,7 @@ function displayCartArticle(element){
     // Creation bloc delete settings
     const deleteNode = document.createElement("div");
     const deleteInput = document.createElement("p");
+    deleteInput.classList.add("deleteItem");
     deleteInput.innerText = "Supprimer";
     deleteNode.classList.add("cart__item__content__settings__delete");
     settingsNode.appendChild(deleteNode);
