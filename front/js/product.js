@@ -1,19 +1,19 @@
     // recupération données localStorage et calcul total price
-// function retrieveAndControlStorageData(colorChoice, product){
-//     let archive = [];
-//     for (var i = 0; i<localStorage.length; i++) {
-//         archive[i] = JSON.parse(localStorage.getItem(localStorage.key(i)));
-//         if (product._id = archive[i]._id && colorChoice == archive[i].colors){
-//             console.log("il existe un produit de ce type");      
-//             const productCount = document.getElementById("quantity");
-//             productCount.setAttribute("value", archive[i].count);
-//             archive = [];
-//         }else{
-//             const productCount = document.getElementById("quantity");
-//             productCount.setAttribute("value", 0);
-//         }
-//     }
-// }
+function retrieveAndControlStorageData(colorChoice, product){
+    let archive = [];
+    for (var i = 0; i<localStorage.length; i++) {
+        archive[i] = JSON.parse(localStorage.getItem(localStorage.key(i)));
+        if (product._id == archive[i]._id && colorChoice == archive[i].colors){
+            console.log("il existe un produit de ce type");      
+            const productCount = document.getElementById("quantity");
+            productCount.setAttribute("value", archive[i].count);
+            i = localStorage.length;
+        }else{
+            const productCount = document.getElementById("quantity");
+            productCount.setAttribute("value", 0);
+        }
+    }
+}
 
 class Canap{
     constructor(altTxt, colors, description, imageUrl, name, price, _id, count){
@@ -83,7 +83,7 @@ const savingDataLocalStorage = (product) =>{                 //saving data
     const colorChoiceNode = document.getElementById("colors");
     colorChoiceNode.addEventListener('change', function(eventSel){
     colorChoice = eventSel.target.value;                                                                   
-    // retrieveAndControlStorageData(colorChoice, product);
+    retrieveAndControlStorageData(colorChoice, product);
     });
 
     // Stockage quantity
