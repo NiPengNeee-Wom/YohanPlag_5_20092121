@@ -98,31 +98,37 @@ function listeningFunction(){
     let elementsArray = document.querySelectorAll("button.deleteItem");
     elementsArray.forEach(function(elem) {
         elem.addEventListener("click", function() {
-            let parentNode = elem.parentNode.parentNode.parentNode;
+            let parentNode = elem.parentNode.parentNode.parentNode.parentNode;
             let productName = parentNode.querySelector("div.cart__item__content__titlePrice > h2").innerText;
-            for (var i = 0; i<localStorage.length; i++) {
-                if (productName == localStorage.key(i)){
-                localStorage.removeItem(productName);
-                archive = [];
-                location.reload();
+            localStorage.removeItem(productName);
+            location.reload();
+            setTimeout(function(){
                 main();
-                }
-            }
+
+            }, 500)
         });
     });
     
     
     // Listen Input  >> modifier count de l'element dans le storage >> redisplay Quantity/Price (pas besoin de redisplay Article)
-    // let productCount = 0;
-    // const productCountModifier = document.querySelector("input.itemQuantity");
-    // productCountModifier.addEventListener('input', function(eventInp){
-    // productCount = eventInp.target.value;
-    // quantity++;
-    // console.log(quantity);
-    // });
-
+    let countArray = document.querySelectorAll("input.itemQuantity");
+    countArray.forEach(function(elemcount) {
+        elemcount.addEventListener("input", function(eventInp) {
+            productCount = eventInp.target.value;
+            let parentCountNode = elemcount.parentNode.parentNode.parentNode;
+            let productCountName = parentCountNode.querySelector("div.cart__item__content__titlePrice > h2").innerText;
+            let productArray = JSON.parse(localStorage.getItem(productCountName));
+            productArray.count = productCount;
+            localStorage.setItem(productArray.name + " " + productArray.colors, JSON.stringify(productArray));
+            total = 0;
+            quantity = 0;
+            retrieveStorageData();
+            displayTotalQuantityAndPrice();
+        });
+    });
 
     // Listen Form   >> Post Données User + Storage + Quantity/Price à l'API pour redirection et recupération IdCommande
+
 }
 
     // Fonction principale
