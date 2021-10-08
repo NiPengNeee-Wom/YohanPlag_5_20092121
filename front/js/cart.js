@@ -95,14 +95,14 @@ function displayTotalQuantityAndPrice(){
     // fonction modification et suppression  d'item
 function listeningFunction(){
     // Listen Delete >> supprimer clé dans le storage >> redisplay Article et Quantity/Price
-    // let elementsArray = document.querySelectorAll("button.deleteItem");
-    // elementsArray.forEach(function(elem) {
-    // elem.addEventListener("click", function() {
-    //     let parentNode = elem.parentNode.parentNode.parentNode;
-    //     let productName = parentNode.querySelector("div.cart__item__content__titlePrice > h2").innerText;
-
-    // });
-// });
+    let elementsArray = document.querySelectorAll("button.deleteItem");
+    elementsArray.forEach(function(elem) {
+        elem.addEventListener("click", function() {
+            let parentNode = elem.parentNode.parentNode.parentNode;
+            let productName = parentNode.querySelector("div.cart__item__content__titlePrice > h2").innerText;
+            console.log(productName);
+        });
+    });
     
     
     // Listen Input  >> modifier count de l'element dans le storage >> redisplay Quantity/Price (pas besoin de redisplay Article)
