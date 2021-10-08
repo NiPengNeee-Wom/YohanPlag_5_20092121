@@ -4,7 +4,7 @@ function retrieveAndDisplayStorageCount(colorChoice, product){
     for (var i = 0; i<localStorage.length; i++) {
         archive[i] = JSON.parse(localStorage.getItem(localStorage.key(i)));
         if (product._id == archive[i]._id && colorChoice == archive[i].colors){
-            console.log("il existe un produit de ce type");      
+            console.log("il existe un produit de ce type");;    
             const productCount = document.getElementById("quantity");
             productCount.setAttribute("value", archive[i].count);
             i = localStorage.length;
@@ -106,7 +106,11 @@ const savingDataLocalStorage = (product) =>{
         let stringDataProduct = JSON.stringify(dataProduct);
         localStorage.setItem(product.name + " " + colorChoice, stringDataProduct);
         }else{
-            console.log("Veuillez choisir une quantité et une couleur");
+            // const erreurInfoNode = document.querySelector("div.item__content__settings__quantity");
+            // const erreurInfo = document.createElement("p");
+            // erreurInfo.setAttribute("style", "color:#bb0b0b; font-weight:bold;");
+            // erreurInfo.innerText = "Veuillez choisir une couleur et une quantité!";
+            // erreurInfoNode.appendChild(erreurInfo);
         }
     });
 }
