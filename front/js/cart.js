@@ -100,7 +100,14 @@ function listeningFunction(){
         elem.addEventListener("click", function() {
             let parentNode = elem.parentNode.parentNode.parentNode;
             let productName = parentNode.querySelector("div.cart__item__content__titlePrice > h2").innerText;
-            console.log(productName);
+            for (var i = 0; i<localStorage.length; i++) {
+                if (productName == localStorage.key(i)){
+                localStorage.removeItem(productName);
+                archive = [];
+                location.reload();
+                main();
+                }
+            }
         });
     });
     
@@ -113,6 +120,8 @@ function listeningFunction(){
     // quantity++;
     // console.log(quantity);
     // });
+
+
     // Listen Form   >> Post Données User + Storage + Quantity/Price à l'API pour redirection et recupération IdCommande
 }
 
