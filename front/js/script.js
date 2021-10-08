@@ -43,7 +43,6 @@ const displayProductsIndex = (product) => {
     newArticle.appendChild(newImg);
     newArticle.appendChild(newTitle);
     newArticle.appendChild(newText);
-
 }
 
 async function main(){

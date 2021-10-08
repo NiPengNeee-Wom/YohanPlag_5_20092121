@@ -1,5 +1,5 @@
-    // recupération données localStorage et calcul total price
-function retrieveAndControlStorageData(colorChoice, product){
+    // Recupération données localStorage et calcul total price
+function retrieveAndDisplayStorageCount(colorChoice, product){
     let archive = [];
     for (var i = 0; i<localStorage.length; i++) {
         archive[i] = JSON.parse(localStorage.getItem(localStorage.key(i)));
@@ -28,7 +28,7 @@ class Canap{
     }
 }
 
-async function fetchApi(idProduct){                                 //fetchApi produit unique
+async function fetchApi(idProduct){
     return fetch(`http://localhost:3000/api/products/` + idProduct)
     .then(function(res){
         if(res.ok){
@@ -40,12 +40,12 @@ async function fetchApi(idProduct){                                 //fetchApi p
     })
 }
 
-
-const displayProducts = (product) => {                              // display du produit
+    // Display du produit
+const displayProducts = (product) => {                              
 
     // Gestion Image
-    const parentNodeImg = document.querySelector("div.item__img");  //placement sur div parent de l'img
-    const newImg = document.createElement("img");                   //creation img
+    const parentNodeImg = document.querySelector("div.item__img");  
+    const newImg = document.createElement("img");                   
     newImg.setAttribute("src", product.imageUrl);
     newImg.setAttribute("alt", product.altTxt);
     parentNodeImg.appendChild(newImg);
@@ -76,14 +76,15 @@ const displayProducts = (product) => {                              // display d
 
 }
 
-const savingDataLocalStorage = (product) =>{                 //saving data
+    // Saving data
+const savingDataLocalStorage = (product) =>{                 
 
     // Stockage couleur
     let colorChoice = "";
     const colorChoiceNode = document.getElementById("colors");
     colorChoiceNode.addEventListener('change', function(eventSel){
     colorChoice = eventSel.target.value;                                                                   
-    retrieveAndControlStorageData(colorChoice, product);
+    retrieveAndDisplayStorageCount(colorChoice, product);
     });
 
     // Stockage quantity
@@ -93,13 +94,13 @@ const savingDataLocalStorage = (product) =>{                 //saving data
     productCount = eventInp.target.value;
     });
 
-    // creation instance pour push Storage
+    // Creation instance pour push Storage
     const eventButton = document.getElementById("addToCart");
     eventButton.addEventListener('click', function(){
 
         let dataProduct = new Canap(product.altTxt, colorChoice ,product.description, product.imageUrl, product.name, product.price, product._id, productCount);
         
-        // localStorageTab.push(dataProduct); injection class dans storage
+        // LocalStorageTab.push(dataProduct); injection class dans storage
         if (productCount >= 1 && colorChoice != "" && productCount <= 100){
         
         let stringDataProduct = JSON.stringify(dataProduct);
@@ -112,10 +113,10 @@ const savingDataLocalStorage = (product) =>{                 //saving data
 
 
 async function main(){
-    var idProduct = document.location.href.split("id=");    // spit de l'id dans l'url
-    let product = await fetchApi(idProduct[1]);              // fetch avec id
-    displayProducts(product);                               // display du produit
-    savingDataLocalStorage(product);                        // stockage info local storage
+    var idProduct = document.location.href.split("id=");    // Spit de l'id dans l'url
+    let product = await fetchApi(idProduct[1]);             // Fetch avec id
+    displayProducts(product);                               // Display du produit
+    savingDataLocalStorage(product);                        // Stockage info local storage
 }
 
 main();
