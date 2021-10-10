@@ -102,7 +102,6 @@ const savingDataLocalStorage = (product) =>{
         
         // LocalStorageTab.push(dataProduct); injection class dans storage
         if (productCount >= 1 && colorChoice != "" && productCount <= 100){
-        
         let stringDataProduct = JSON.stringify(dataProduct);
         localStorage.setItem(product.name + " " + colorChoice, stringDataProduct);
         }else{

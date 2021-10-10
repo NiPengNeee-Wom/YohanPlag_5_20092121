@@ -126,7 +126,7 @@ function listeningFunction(){
             displayTotalQuantityAndPrice();
         });
     });
-
+      
     // Listen Form   >> Post Données User + Storage + Quantity/Price à l'API pour redirection et recupération IdCommande
     const orderButton = document.getElementById("order");
     orderButton.addEventListener('click', function(inpEvent){
@@ -140,7 +140,6 @@ function listeningFunction(){
         const cityError = document.getElementById("cityErrorMsg");
         const emailInput = document.getElementById("email");
         const emailError = document.getElementById("emailErrorMsg");
-
     });
 }
 
