@@ -1,16 +1,12 @@
     // Recupération données localStorage et calcul total price
 function retrieveAndDisplayStorageCount(colorChoice, product){
     let archive = [];
+    let returnArray = [true, 0];
     for (var i = 0; i<localStorage.length; i++) {
         archive[i] = JSON.parse(localStorage.getItem(localStorage.key(i)));
-        if (product._id == archive[i]._id && colorChoice == archive[i].colors){
-            console.log("il existe un produit de ce type");;    
-            const productCount = document.getElementById("quantity");
-            productCount.setAttribute("value", archive[i].count);
-            i = localStorage.length;
-        }else{
-            const productCount = document.getElementById("quantity");
-            productCount.setAttribute("value", 0);
+        if (product._id == archive[i]._id && colorChoice == archive[i].colors){    
+            returnArray[1] = archive[i].count;
+            return returnArray;
         }
     }
 }
@@ -83,8 +79,14 @@ const savingDataLocalStorage = (product) =>{
     let colorChoice = "";
     const colorChoiceNode = document.getElementById("colors");
     colorChoiceNode.addEventListener('change', function(eventSel){
-    colorChoice = eventSel.target.value;                                                                   
-    retrieveAndDisplayStorageCount(colorChoice, product);
+        colorChoice = eventSel.target.value;
+        if (retrieveAndDisplayStorageCount(colorChoice, product)){
+            const productCount = document.getElementById("quantity");
+            productCount.setAttribute("value", retrieveAndDisplayStorageCount(colorChoice, product)[1]);
+        }else{
+            const productCount = document.getElementById("quantity");
+            productCount.setAttribute("value", 0);
+        }                                                                   
     });
 
     // Stockage quantity

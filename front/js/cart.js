@@ -98,14 +98,14 @@ function listeningFunction(){
     let elementsArray = document.querySelectorAll("button.deleteItem");
     elementsArray.forEach(function(elem) {
         elem.addEventListener("click", function() {
-            let parentNode = elem.parentNode.parentNode.parentNode.parentNode;
-            let productName = parentNode.querySelector("div.cart__item__content__titlePrice > h2").innerText;
+            let dataparentNode = elem.parentNode.parentNode.parentNode.parentNode;
+            let productName = dataparentNode.querySelector("div.cart__item__content__titlePrice > h2").innerText;
             localStorage.removeItem(productName);
-            location.reload();
-            setTimeout(function(){
-                main();
-
-            }, 500)
+            total = 0;
+            quantity = 0;
+            dataparentNode.parentNode.removeChild(dataparentNode);
+            retrieveStorageData();
+            displayTotalQuantityAndPrice();
         });
     });
     
@@ -144,9 +144,9 @@ function listeningFunction(){
 }
 
     // Fonction principale
-function main(){
+function main(momment){
     retrieveStorageData();                  // Récupération du LocalStorage
-    displayCartArticle();                   // Affichage des produits
+    displayCartArticle();         
     displayTotalQuantityAndPrice();         // Affichage Prix et Quantity total
     listeningFunction();                    // Systeme d'ecoute des input/select/Form
 }
