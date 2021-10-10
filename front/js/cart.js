@@ -144,7 +144,7 @@ function listeningFunction(){
 }
 
     // Fonction principale
-function main(momment){
+function main(){
     retrieveStorageData();                  // Récupération du LocalStorage
     displayCartArticle();         
     displayTotalQuantityAndPrice();         // Affichage Prix et Quantity total
