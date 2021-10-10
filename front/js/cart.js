@@ -103,7 +103,7 @@ function listeningFunction(){
             localStorage.removeItem(productName);
             total = 0;
             quantity = 0;
-            dataparentNode.parentNode.removeChild(dataparentNode);
+            dataparentNode.remove();
             retrieveStorageData();
             displayTotalQuantityAndPrice();
         });
