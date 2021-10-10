@@ -129,18 +129,18 @@ function listeningFunction(){
       
     // Listen Form   >> Post Données User + Storage + Quantity/Price à l'API pour redirection et recupération IdCommande
     const orderButton = document.getElementById("order");
-    orderButton.addEventListener('click', function(inpEvent){
-        const firstNameInput = document.getElementById("firstName");
-        const firstNameError = document.getElementById("firstNameErrorMsg");
-        const lastNameInput = document.getElementById("lastName");
-        const lastNameError = document.getElementById("lastNameErrorMsg");
-        const addressInput = document.getElementById("address");
-        const addressError = document.getElementById("addressErrorMsg");
-        const cityInput = document.getElementById("city");
-        const cityError = document.getElementById("cityErrorMsg");
-        const emailInput = document.getElementById("email");
-        const emailError = document.getElementById("emailErrorMsg");
-    });
+    // orderButton.addEventListener('click', function(inpEvent){
+    //     const firstNameInput = document.getElementById("firstName");
+    //     const firstNameError = document.getElementById("firstNameErrorMsg");
+    //     const lastNameInput = document.getElementById("lastName");
+    //     const lastNameError = document.getElementById("lastNameErrorMsg");
+    //     const addressInput = document.getElementById("address");
+    //     const addressError = document.getElementById("addressErrorMsg");
+    //     const cityInput = document.getElementById("city");
+    //     const cityError = document.getElementById("cityErrorMsg");
+    //     const emailInput = document.getElementById("email");
+    //     const emailError = document.getElementById("emailErrorMsg");
+    // }
 }
 
     // Fonction principale

@@ -107,7 +107,7 @@ const savingDataLocalStorage = (product) =>{
 
     // Creation instance pour push Storage
 
-    const erreurInfoNode = document.querySelector("div.item__content__addButton");
+    const erreurInfoNode = document.querySelector("div.item__content");
     const erreurInfo = document.createElement("p");
     erreurInfo.setAttribute("style", "color:#bb0b0b; font-weight:bold;");
     erreurInfo.innerText = "    Veuillez choisir une couleur et une quantité!";
@@ -125,7 +125,7 @@ const savingDataLocalStorage = (product) =>{
         }else{
             erreurInfoNode.appendChild(erreurInfo);
         }
-    });
+    })
 }
 
 
