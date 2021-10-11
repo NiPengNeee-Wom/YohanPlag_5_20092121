@@ -102,7 +102,7 @@ function listeningFunction(){                                           // Fonct
     });
       
     const orderButton = document.getElementById("order");               // Ecoute Bouton Order
-    orderButton.addEventListener('click', function(event){
+    orderButton.addEventListener('submit', function(event){
         let control = parseInt(0);
         const firstNameInput = document.getElementById("firstName");    // Gestion erreur Form
         const firstNameError = document.getElementById("firstNameErrorMsg");
@@ -168,7 +168,6 @@ function listeningFunction(){                                           // Fonct
         for(let j = 0; j<archive.length;j++){
             product[j] = archive[j]._id;
         }
-
         const order = {
             contact: {
                firstName: firstName,
@@ -179,7 +178,6 @@ function listeningFunction(){                                           // Fonct
             },
             products: product,
         };
-
         const options = {
             method: 'POST',
             body: JSON.stringify(order),
