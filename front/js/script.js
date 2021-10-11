@@ -13,7 +13,7 @@ async function fetchApi(){
 const displayProductsIndex = (product) => {
 
     // Creation ParentNode
-    const parentNode = document.getElementById("items");
+    const parentNode = document.getElementById("items");                   
 
     // Creation Lien
     const newLink = document.createElement("a");

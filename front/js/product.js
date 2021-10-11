@@ -83,18 +83,13 @@ const savingDataLocalStorage = (product) =>{
     quantityParentNode.appendChild(quantityInfo);
     colorChoiceNode.addEventListener('change', function(eventSel){
         colorChoice = eventSel.target.value;
-        // let productCount = document.getElementById("quantity");
         if (retrieveAndDisplayStorageCount(colorChoice, product)){
-            // let productCount = document.getElementById("quantity");
             quantityInfo.innerText = "Vous avez déjà " + retrieveAndDisplayStorageCount(colorChoice, product)[1] + " produit de ce type dans votre panier";
-            // productCount.setAttribute("value", retrieveAndDisplayStorageCount(colorChoice, product)[1]);
         }else{
             if (document.querySelector("div.item__content__settings > p")){
 
                 quantityInfo.innerText = "";
             }
-            // let productCount = document.getElementById("quantity");
-            // productCount.setAttribute("value", 0);
         }                                                                   
     });
 
