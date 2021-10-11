@@ -85,7 +85,7 @@ function listeningFunction(){                                           // Fonct
         });
     });
     
-    let countArray = document.querySelectorAll("input.itemQuantity");  // Ecounte Count
+    let countArray = document.querySelectorAll("input.itemQuantity");   // Ecounte Count
     countArray.forEach(function(elemcount) {
         elemcount.addEventListener("input", function(eventInp) {
             productCount = eventInp.target.value;
@@ -103,7 +103,7 @@ function listeningFunction(){                                           // Fonct
       
     const orderButton = document.getElementById("order");               // Ecoute Bouton Order
     orderButton.addEventListener('click', function(event){
-        let control = false;
+        let control = parseInt(0);
         const firstNameInput = document.getElementById("firstName");    // Gestion erreur Form
         const firstNameError = document.getElementById("firstNameErrorMsg");
         let firstName = "";
@@ -114,7 +114,7 @@ function listeningFunction(){                                           // Fonct
         }else{
             firstNameError.innerText = "mauvais prénom";
             event.preventDefault();
-            control = true;
+            control++;
         }
         const lastNameInput = document.getElementById("lastName");
         const lastNameError = document.getElementById("lastNameErrorMsg");
@@ -126,7 +126,7 @@ function listeningFunction(){                                           // Fonct
         }else{
             lastNameError.innerText = "Mauvais nom de famille";
             event.preventDefault();
-            control = true;
+            control++;
         }
         const addressInput = document.getElementById("address");
         const addressError = document.getElementById("addressErrorMsg");
@@ -138,7 +138,7 @@ function listeningFunction(){                                           // Fonct
         }else{
             addressError.innerText = "Mauvaise adresse";
             event.preventDefault();
-            control = true;
+            control++;
         }
         const cityInput = document.getElementById("city");
         const cityError = document.getElementById("cityErrorMsg");
@@ -148,9 +148,9 @@ function listeningFunction(){                                           // Fonct
             ville = cityInput.value;
             cityError.innerText = "";
         }else{
-            cityError.innerText = "Mauvaise adresse";
+            cityError.innerText = "Mauvais nom de ville";
             event.preventDefault();
-            control = true;
+            control++;
         }
         const emailInput = document.getElementById("email");
         const emailError = document.getElementById("emailErrorMsg");
@@ -162,12 +162,13 @@ function listeningFunction(){                                           // Fonct
         }else{
             emailError.innerText = "mauvaise adresse email";
             event.preventDefault();
-            control = true;
+            control++;
         }
         const product = [];                                            // Creation Body pour API
         for(let j = 0; j<archive.length;j++){
             product[j] = archive[j]._id;
         }
+
         const order = {
             contact: {
                firstName: firstName,
@@ -178,24 +179,26 @@ function listeningFunction(){                                           // Fonct
             },
             products: product,
         };
+
         const options = {
             method: 'POST',
             body: JSON.stringify(order),
             headers: { 
                "Content-Type": "application/json" 
             },
-        };
-        if(control == false){                                           // Envoie de la requête
-            fetch("http://localhost:3000/api/products/order", options)
-                .then(res => res.json())
-                .then((data) => {
-                    localStorage.clear();
-                    localStorage.setItem("orderId", data.orderId);
-                    window.location.href = "http://127.0.0.1:5500/front/html/confirmation.html";
-                })
-                .catch(function(error) {
-                    alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
-                });
+        };                                           
+        if (control < 1){                                               // Envoie de la requête
+        fetch("http://localhost:3000/api/products/order", options)
+            .then(res => res.json())
+            .then((data) => {
+                localStorage.clear();
+                localStorage.setItem("orderId", data.orderId);
+                window.location.href = "http://127.0.0.1:5500/front/html/confirmation.html";
+            })
+            .catch(function(err) {
+                alert('Il y a eu un problème avec l\'opération fetch: ' + err.message);
+                console.log("bug");
+            });
         }
         event.preventDefault();
     });
