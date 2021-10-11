@@ -2,8 +2,7 @@ let archive = [];
 let total = 0;
 let quantity = 0;
 
-    // recupération données localStorage et calcul total price
-function retrieveStorageData(){
+function retrieveStorageData(){                                         // recupération données localStorage et calcul total price
     for (var i = 0; i<localStorage.length; i++) {
         archive[i] = JSON.parse(localStorage.getItem(localStorage.key(i)));
         total += parseInt(archive[i].price * archive[i].count, 10);
@@ -11,55 +10,36 @@ function retrieveStorageData(){
     }
 }
 
-
-    // Affichage des Elements du panier
-function displayCartArticle(){
-    
+function displayCartArticle(){                                          // Affichage des Elements du panier
     for(element of archive){
-        
-       // Creation du noeud parent
-        const parentNode = document.getElementById("cart__items");
-
-        // Creation article
-        const articleNode = document.createElement("article");
+        const parentNode = document.getElementById("cart__items");      // Creation du noeud parent
+        const articleNode = document.createElement("article");          // Creation article
         articleNode.classList.add("cart__item");
         articleNode.setAttribute("data-id", element._id);
         parentNode.appendChild(articleNode);
-
-        // Creation Div Image
-        const imgNode = document.createElement("div");
+        const imgNode = document.createElement("div");                  // Creation Div Image
         imgNode.classList.add("cart__item__img");
         articleNode.appendChild(imgNode);
-
-        // Creation Img
-        const image = document.createElement("img");
+        const image = document.createElement("img");                    // Creation Img
         image.setAttribute("src", element.imageUrl);
         image.setAttribute("alt", element.description);
         imgNode.appendChild(image);
-
-        // Creation div contenu item
-        const contentNode = document.createElement("div");
+        const contentNode = document.createElement("div");              // Creation div contenu item
         contentNode.classList.add("cart__item__content");
         const contentNodeSub = document.createElement("div");
         contentNodeSub.classList.add("cart__item__content__titlePrice");
         articleNode.appendChild(contentNode);
         contentNode.appendChild(contentNodeSub);
-
-        // Creation bloc prix et titre
-        const productName = document.createElement("h2");
+        const productName = document.createElement("h2");               // Creation bloc prix et titre
         productName.innerText = element.name + " " + element.colors;
         const productPrice = document.createElement("p");
         productPrice.innerText = element.price + "€";
         contentNodeSub.appendChild(productName);
         contentNodeSub.appendChild(productPrice);
-
-        // Creation bloc settings
-        const settingsNode = document.createElement("div");
+        const settingsNode = document.createElement("div");             // Creation bloc settings
         settingsNode.classList.add("cart__item__content__settings");
-        contentNode.appendChild(settingsNode);
-
-        // Creation bloc quantity settings
-        const quantityNode = document.createElement("div");
+        contentNode.appendChild(settingsNode);  
+        const quantityNode = document.createElement("div");             // Creation bloc quantity settings
         quantityNode.classList.add("cart__item__content__settings__quantity");
         settingsNode.appendChild(quantityNode);
         const quantity = document.createElement("p");
@@ -73,9 +53,7 @@ function displayCartArticle(){
         input.setAttribute("max", "100");
         input.setAttribute("value", element.count);
         quantityNode.appendChild(input);  
-
-        // Creation bloc delete settings
-        const deleteNode = document.createElement("div");
+        const deleteNode = document.createElement("div");               // Creation bloc delete settings
         const deleteInput = document.createElement("button");
         deleteInput.classList.add("deleteItem");
         deleteInput.innerText = "Supprimer";
@@ -85,18 +63,15 @@ function displayCartArticle(){
     }    
 }
 
-    // fonction affichage Prix total
-function displayTotalQuantityAndPrice(){
+function displayTotalQuantityAndPrice(){                                // Fonction affichage Prix total
     const totalQuantityNode = document.getElementById("totalQuantity");
     totalQuantityNode.innerText = quantity;
     const totalPriceNoce = document.getElementById("totalPrice");
     totalPriceNoce.innerText = total;
 }
 
-    // fonction modification et suppression  d'item
-function listeningFunction(){
-    // Listen Delete >> supprimer clé dans le storage >> redisplay Article et Quantity/Price
-    let elementsArray = document.querySelectorAll("button.deleteItem");
+function listeningFunction(){                                           // Fonction ecoute Del/Count/order
+    let elementsArray = document.querySelectorAll("button.deleteItem"); // Ecoute Delete
     elementsArray.forEach(function(elem) {
         elem.addEventListener("click", function() {
             let dataparentNode = elem.parentNode.parentNode.parentNode.parentNode;
@@ -110,9 +85,7 @@ function listeningFunction(){
         });
     });
     
-    
-    // Listen Input  >> modifier count de l'element dans le storage >> redisplay Quantity/Price (pas besoin de redisplay Article)
-    let countArray = document.querySelectorAll("input.itemQuantity");
+    let countArray = document.querySelectorAll("input.itemQuantity");  // Ecounte Count
     countArray.forEach(function(elemcount) {
         elemcount.addEventListener("input", function(eventInp) {
             productCount = eventInp.target.value;
@@ -128,11 +101,10 @@ function listeningFunction(){
         });
     });
       
-    // Listen Form   >> Post Données User + Storage + Quantity/Price à l'API pour redirection et recupération IdCommande
-    const orderButton = document.getElementById("order");
+    const orderButton = document.getElementById("order");               // Ecoute Bouton Order
     orderButton.addEventListener('click', function(event){
         let control = false;
-        const firstNameInput = document.getElementById("firstName");
+        const firstNameInput = document.getElementById("firstName");    // Gestion erreur Form
         const firstNameError = document.getElementById("firstNameErrorMsg");
         let firstName = "";
         let firstNameFormat = /^[a-zA-Z\-]+$/;
@@ -191,51 +163,44 @@ function listeningFunction(){
             emailError.innerText = "mauvaise adresse email";
             event.preventDefault();
             control = true;
-        }                       /// test de debug
-        const products = [];
-
-        for(let j = 0; j<archive.length;j++){
-            products[j] = archive[j]._id;
         }
-
+        const product = [];                                            // Creation Body pour API
+        for(let j = 0; j<archive.length;j++){
+            product[j] = archive[j]._id;
+        }
         const order = {
             contact: {
                firstName: firstName,
                lastName: lastName,
-               city: ville,
                address: adresse,
+               city: ville,
                email: email,
             },
-            products: products,
+            products: product,
         };
-
         const options = {
             method: 'POST',
             body: JSON.stringify(order),
             headers: { 
                "Content-Type": "application/json" 
             },
-         };
-      
-         // Envoie de la requête
-
-         if(control == false){
-         fetch("http://localhost:3000/api/products/order", options)
-         .then(res => res.json())
-         .then((data) => {
-            localStorage.clear();
-            localStorage.setItem("orderId", data.orderId);
-            setTimeout(function(){ window.location.href = "http://127.0.0.1:5500/front/html/confirmation.html"; }, 1000);
-         })
-         .catch(function(error) {
-            console.log('Il y a eu un problème avec l\'opération fetch: ' + error.message);
-         });
+        };
+        if(control == false){                                           // Envoie de la requête
+            fetch("http://localhost:3000/api/products/order", options)
+                .then(res => res.json())
+                .then((data) => {
+                    localStorage.clear();
+                    localStorage.setItem("orderId", data.orderId);
+                    window.location.href = "http://127.0.0.1:5500/front/html/confirmation.html";
+                })
+                .catch(function(error) {
+                    alert('Il y a eu un problème avec l\'opération fetch: ' + error.message);
+                });
         }
         event.preventDefault();
     });
 }
 
-    // Fonction principale
 function main(){
     retrieveStorageData();                  // Récupération du LocalStorage
     displayCartArticle();                   // Affichage du panier
