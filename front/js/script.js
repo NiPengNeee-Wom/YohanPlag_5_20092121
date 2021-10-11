@@ -11,34 +11,20 @@ async function fetchApi(){
 }
 
 const displayProductsIndex = (product) => {
-
-    // Creation ParentNode
-    const parentNode = document.getElementById("items");                   
-
-    // Creation Lien
-    const newLink = document.createElement("a");
+    const parentNode = document.getElementById("items");                    // Creation ParentNode                
+    const newLink = document.createElement("a");                            // Creation Lien
     newLink.setAttribute("href", "product.html?id=" + product._id);
-
-    // Creation Article
-    const newArticle = document.createElement("article");
-
-    // Creation Image
-    const newImg = document.createElement("img");
+    const newArticle = document.createElement("article");                   // Creation Article
+    const newImg = document.createElement("img");                           // Creation Image
     newImg.setAttribute("src", product.imageUrl);
     newImg.setAttribute("alt", product.description);
-
-    // Creation Titre
-    const newTitle = document.createElement("h3");
+    const newTitle = document.createElement("h3");                          // Creation Titre
     newTitle.innerText = product.name;
     newTitle.classList.add("productName");
-
-    // Creation Text
-    const newText = document.createElement("p");
+    const newText = document.createElement("p");                            // Creation Text
     newText.classList.add("productDescription");
     newText.innerText = product.description;
-
-    // Imbrication Elements
-    parentNode.appendChild(newLink);
+    parentNode.appendChild(newLink);                                        // Imbrication Elements
     newLink.appendChild(newArticle);
     newArticle.appendChild(newImg);
     newArticle.appendChild(newTitle);
@@ -46,8 +32,8 @@ const displayProductsIndex = (product) => {
 }
 
 async function main(){
-    let products = await fetchApi();
-    for(elements of products){
+    let products = await fetchApi();                                        // Contact Api
+    for(elements of products){                                              // Display des produits
         displayProductsIndex(elements);
     }
 }
