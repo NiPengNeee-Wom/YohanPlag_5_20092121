@@ -2,7 +2,7 @@ let archive = [];
 let total = 0;
 let quantity = 0;
 
-function retrieveStorageData(){                                         // recupération données localStorage et calcul total price
+function retrieveStorageData(){                                                 // recupération données localStorage et calcul total price
     for (var i = 0; i<localStorage.length; i++) {
         archive[i] = JSON.parse(localStorage.getItem(localStorage.key(i)));
         total += parseInt(archive[i].price * archive[i].count, 10);
@@ -10,43 +10,43 @@ function retrieveStorageData(){                                         // recup
     }
 }
 
-function displayCartArticle(){                                          // Affichage des Elements du panier
+function displayCartArticle(){                                                  // Affichage des Elements du panier
     for(element of archive){
-        const parentNode = document.getElementById("cart__items");      // Creation du noeud parent
+        const parentNode = document.getElementById("cart__items");              // Creation du noeud parent
         
-        const articleNode = document.createElement("article");          // Creation article
+        const articleNode = document.createElement("article");                  // Creation article
         articleNode.classList.add("cart__item");
         articleNode.setAttribute("data-id", element._id);
         parentNode.appendChild(articleNode);
         
-        const imgNode = document.createElement("div");                  // Creation Div Image
+        const imgNode = document.createElement("div");                          // Creation Div Image
         imgNode.classList.add("cart__item__img");
         articleNode.appendChild(imgNode);
         
-        const image = document.createElement("img");                    // Creation Img
+        const image = document.createElement("img");                            // Creation Img
         image.setAttribute("src", element.imageUrl);
         image.setAttribute("alt", element.description);
         imgNode.appendChild(image);
         
-        const contentNode = document.createElement("div");              // Creation div contenu item
+        const contentNode = document.createElement("div");                      // Creation div contenu item
         contentNode.classList.add("cart__item__content");
         const contentNodeSub = document.createElement("div");
         contentNodeSub.classList.add("cart__item__content__titlePrice");
         articleNode.appendChild(contentNode);
         contentNode.appendChild(contentNodeSub);
         
-        const productName = document.createElement("h2");               // Creation bloc prix et titre
+        const productName = document.createElement("h2");                       // Creation bloc prix et titre
         productName.innerText = element.name + " " + element.colors;
         const productPrice = document.createElement("p");
         productPrice.innerText = element.price + "€";
         contentNodeSub.appendChild(productName);
         contentNodeSub.appendChild(productPrice);
         
-        const settingsNode = document.createElement("div");             // Creation bloc settings
+        const settingsNode = document.createElement("div");                     // Creation bloc settings
         settingsNode.classList.add("cart__item__content__settings");
         contentNode.appendChild(settingsNode);  
         
-        const quantityNode = document.createElement("div");             // Creation bloc quantity settings
+        const quantityNode = document.createElement("div");                     // Creation bloc quantity settings
         quantityNode.classList.add("cart__item__content__settings__quantity");
         settingsNode.appendChild(quantityNode);
         const quantity = document.createElement("p");
@@ -61,7 +61,7 @@ function displayCartArticle(){                                          // Affic
         input.setAttribute("value", element.count);
         quantityNode.appendChild(input);  
         
-        const deleteNode = document.createElement("div");               // Creation bloc delete settings
+        const deleteNode = document.createElement("div");                       // Creation bloc delete settings
         const deleteInput = document.createElement("button");
         deleteInput.classList.add("deleteItem");
         deleteInput.innerText = "Supprimer";
@@ -71,7 +71,7 @@ function displayCartArticle(){                                          // Affic
     }    
 }
 
-function displayTotalQuantityAndPrice(){                                // Fonction affichage Prix total
+function displayTotalQuantityAndPrice(){                                        // Fonction affichage Prix total
     const totalQuantityNode = document.getElementById("totalQuantity");
     totalQuantityNode.innerText = quantity;
     const totalPriceNoce = document.getElementById("totalPrice");
@@ -79,7 +79,7 @@ function displayTotalQuantityAndPrice(){                                // Fonct
 }
 
 
-function listeningDelete(){                                             // Fonction Delete
+function listeningDelete(){                                                     // Fonction Delete
     let elementsArray = document.querySelectorAll("button.deleteItem");
     elementsArray.forEach(function(elem) {
         elem.addEventListener("click", function() {
@@ -95,7 +95,7 @@ function listeningDelete(){                                             // Fonct
     });
 }
 
-function listeningCount(){                                              // fonction Count
+function listeningCount(){                                                      // fonction Count
     let countArray = document.querySelectorAll("input.itemQuantity");
     countArray.forEach(function(elemcount) {
         elemcount.addEventListener("input", function(eventInp) {
@@ -113,8 +113,8 @@ function listeningCount(){                                              // fonct
     });
 }
 
-function listeningOrder(){                                              // Ecoute Bouton Order
-    const orderButton = document.getElementById("order");
+function listeningOrder(){                                                      // Fonction control et Order
+    const orderButton = document.getElementById("order");                       // récuperation des données de DOM
     let firstNameInput = document.getElementById("firstName");
     let lastNameInput = document.getElementById("lastName");
     let addressInput = document.getElementById("address");
@@ -123,7 +123,7 @@ function listeningOrder(){                                              // Ecout
     const allLetterFormat = /^[a-zA-Z\-]+$/;
     const adresseFormat = /^[a-zA-Z0-9\s,.'-]{3,}$/;
     const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    orderButton.addEventListener('click', function(event){
+    orderButton.addEventListener('click', function(event){                      // Ecoute Order
         document.getElementById("firstNameErrorMsg").innerText = "";
         document.getElementById("lastNameErrorMsg").innerText = "";
         document.getElementById("addressErrorMsg").innerText = "";
@@ -156,7 +156,7 @@ function listeningOrder(){                                              // Ecout
             control = false;
         }
         if(control){
-            const product = [];                                            // Creation Body pour API
+            const product = [];                                                 // Creation Body pour API
             for(let j = 0; j<localStorage.length;j++){
                 product[j] = JSON.parse(localStorage.getItem(localStorage.key(j)))._id;
             }
@@ -196,7 +196,7 @@ function listeningOrder(){                                              // Ecout
     });
 }
 
-function listeningFunction(){                                           // Fonction ecoute Del/Count/order
+function listeningFunction(){                                                   // Fonction ecoute Del/Count/order
     listeningDelete();
     listeningCount();
     listeningOrder();
