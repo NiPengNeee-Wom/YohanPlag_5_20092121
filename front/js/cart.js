@@ -160,7 +160,6 @@ function listeningOrder(){                                                      
             for(let j = 0; j<localStorage.length;j++){
                 product[j] = JSON.parse(localStorage.getItem(localStorage.key(j)))._id;
             }
-            console.log(product);
             if(product.length > 0){
                 const order = {
                     contact: {
@@ -178,7 +177,7 @@ function listeningOrder(){                                                      
                     headers: { 
                     "Content-Type": "application/json" 
                     },
-                };                                                                                          
+                };                                                                                        
                 fetch("http://localhost:3000/api/products/order", options)      // Envoie de la requête
                 .then(res => res.json())
                 .then((data) => {
@@ -193,6 +192,7 @@ function listeningOrder(){                                                      
                 alert("Le panier est vide");
             }
         }
+        event.preventDefault();
     });
 }
 
