@@ -102,7 +102,7 @@ function listeningFunction(){                                           // Fonct
     });
       
     const orderButton = document.getElementById("order");               // Ecoute Bouton Order
-    orderButton.addEventListener('submit', function(event){
+    orderButton.addEventListener('click', function(event){
         let control = parseInt(0);
         const firstNameInput = document.getElementById("firstName");    // Gestion erreur Form
         const firstNameError = document.getElementById("firstNameErrorMsg");
