@@ -1,4 +1,4 @@
-function retrieveAndDisplayStorageCount(colorChoice, product){                  // Fonction de Recupération données localStorage et calcul total price
+function retrieveAndDisplayStorageCount(colorChoice, product){                  // Fonction de Recupération données localStorage
     let archive = [];
     let returnArray = [true, 0];
     for (var i = 0; i<localStorage.length; i++) {
