@@ -100,8 +100,8 @@ const savingDataLocalStorage = (product) =>{                                    
 }
 
 async function main(){
-    var idProduct = document.location.href.split("id=");                        // Spit de l'id dans l'url
-    let product = await fetchApi(idProduct[1]);                                 // Fetch avec id
+    const idProduct = new URLSearchParams(window.location.search).get("id");    // Recuperation Id dans l'url
+    let product = await fetchApi(idProduct);                                    // Fetch avec id
     displayProducts(product);                                                   // Display du produit
     savingDataLocalStorage(product);                                            // Stockage info local storage
 }

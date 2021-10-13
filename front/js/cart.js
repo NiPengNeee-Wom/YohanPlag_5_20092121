@@ -124,6 +124,7 @@ function listeningOrder(){                                                      
     const adresseFormat = /^[a-zA-Z0-9\s,.'-]{3,}$/;
     const mailformat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     orderButton.addEventListener('click', function(event){                      // Ecoute Order
+        event.preventDefault();                     
         document.getElementById("firstNameErrorMsg").innerText = "";
         document.getElementById("lastNameErrorMsg").innerText = "";
         document.getElementById("addressErrorMsg").innerText = "";
@@ -174,16 +175,17 @@ function listeningOrder(){                                                      
                 const options = {
                     method: 'POST',
                     body: JSON.stringify(order),
-                    headers: { 
+                    headers: {
+                    'Accept': 'application/json', 
                     "Content-Type": "application/json" 
                     },
                 };                                                                                        
                 fetch("http://localhost:3000/api/products/order", options)      // Envoie de la requête
                 .then(res => res.json())
-                .then((data) => {
+                .then(function(data) {
                     localStorage.clear();
                     localStorage.setItem("orderId", data.orderId);
-                    window.location.href = "http://127.0.0.1:5500/front/html/confirmation.html";
+                    window.location.href = "confirmation.html";
                 })
                 .catch(function(err) {
                     alert('Il y a eu un problème avec l\'opération fetch: ' + err.message);
@@ -192,7 +194,6 @@ function listeningOrder(){                                                      
                 alert("Le panier est vide");
             }
         }
-        event.preventDefault();
     });
 }
 
