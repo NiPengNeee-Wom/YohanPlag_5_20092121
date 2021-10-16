@@ -13,39 +13,39 @@ function retrieveStorageData(){                                                 
 function displayCartArticle(){                                                  // Affichage des Elements du panier
     for(element of archive){
         const parentNode = document.getElementById("cart__items");              // Creation du noeud parent
-        
+
         const articleNode = document.createElement("article");                  // Creation article
         articleNode.classList.add("cart__item");
         articleNode.setAttribute("data-id", element._id);
         parentNode.appendChild(articleNode);
-        
+
         const imgNode = document.createElement("div");                          // Creation Div Image
         imgNode.classList.add("cart__item__img");
         articleNode.appendChild(imgNode);
-        
+
         const image = document.createElement("img");                            // Creation Img
         image.setAttribute("src", element.imageUrl);
         image.setAttribute("alt", element.description);
         imgNode.appendChild(image);
-        
+
         const contentNode = document.createElement("div");                      // Creation div contenu item
         contentNode.classList.add("cart__item__content");
         const contentNodeSub = document.createElement("div");
         contentNodeSub.classList.add("cart__item__content__titlePrice");
         articleNode.appendChild(contentNode);
         contentNode.appendChild(contentNodeSub);
-        
+
         const productName = document.createElement("h2");                       // Creation bloc prix et titre
         productName.innerText = element.name + " " + element.colors;
         const productPrice = document.createElement("p");
         productPrice.innerText = element.price + "€";
         contentNodeSub.appendChild(productName);
         contentNodeSub.appendChild(productPrice);
-        
+
         const settingsNode = document.createElement("div");                     // Creation bloc settings
         settingsNode.classList.add("cart__item__content__settings");
-        contentNode.appendChild(settingsNode);  
-        
+        contentNode.appendChild(settingsNode);
+
         const quantityNode = document.createElement("div");                     // Creation bloc quantity settings
         quantityNode.classList.add("cart__item__content__settings__quantity");
         settingsNode.appendChild(quantityNode);
@@ -59,8 +59,8 @@ function displayCartArticle(){                                                  
         input.setAttribute("min", "1");
         input.setAttribute("max", "100");
         input.setAttribute("value", element.count);
-        quantityNode.appendChild(input);  
-        
+        quantityNode.appendChild(input);
+
         const deleteNode = document.createElement("div");                       // Creation bloc delete settings
         const deleteInput = document.createElement("button");
         deleteInput.classList.add("deleteItem");

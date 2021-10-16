@@ -59,7 +59,7 @@ const displayProducts = (product) => {                                          
     descriptionNode.innerText = product.description;
 }
 
-const savingDataLocalStorage = (product) =>{                                    // Fonction Sauvegarde LocalStorage         
+const savingDataLocalStorage = (product) =>{                                    // Fonction Sauvegarde LocalStorage
     let colorChoice = "";                                                       // Stockage couleur
     let colorChoiceNode = document.getElementById("colors");
     const quantityParentNode = document.querySelector("div.item__content__settings");
